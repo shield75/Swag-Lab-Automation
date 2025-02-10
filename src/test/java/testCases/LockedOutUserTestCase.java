@@ -37,6 +37,7 @@ public class LockedOutUserTestCase extends BaseClass {
         for (Object[] data : lockedOutUserData) {
             verifyInvalidCredentials((String) data[0], (String) data[1], (String) data[2]);
         }
+        softAssert.assertAll();
     }
 
     @Step("Verify the error message: “Sorry, this user has been locked out.”")

@@ -49,8 +49,7 @@ public class DriverManager {
     // Quit the WebDriver and clean up
     public static void quitDriver() {
         if (driver != null) {
-            driver.close();
-            driver.quit();  // Quit the browser once all tests are completed
+            driver.quit();
             driver = null;  // Clean up the driver instance
         }
     }
