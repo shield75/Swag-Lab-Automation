@@ -42,4 +42,11 @@ public class LoginData {
                 {STANDARD_USER, PASSWORD}
         };
     }
+
+    @DataProvider(name = "lockedOutUserData")
+    public Object[][] lockedOutUserData() {
+        return new Object[][]{
+                {LOCKED_OUT_USER, PASSWORD, ERROR_USER_LOCKED_OUT}
+        };
+    }
 }

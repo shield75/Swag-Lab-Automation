@@ -7,7 +7,8 @@
             <!--<class name="testCases.AddToCartTestCase"/>-->
             <!--<class name="testCases.CheckoutTestCase"/>-->
             <!--<class name="testCases.ProductSortingTestCase"/>-->
-            <class name="testCases.LogOutTestCase"/>
+            <!--<class name="testCases.LogOutTestCase"/>-->
+            <class name="testCases.LockedOutUserTestCase"/>
         </classes>
     </test>
 </suite>
