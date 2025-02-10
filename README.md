@@ -181,11 +181,11 @@ To present test results, you can include images in the `assets/` folder. Update 
 
 - **Detailed Test Case Report**:
 
-![Test Case Details](assets/single test case.png)
+![Test Case Details](assets/singletestcase.png)
 
 - **Swag Lab Automation Test Cases**:
 
-![Test Cases](assets/test cases.png)
+![Test Cases](assets/testcases.png)
 
 ---
 
