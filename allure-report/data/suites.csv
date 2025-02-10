@@ -1,0 +1,25 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"1. Navigate to saucedemo.com.
+2. Enter valid credentials
+3. Username: standard_user
+4. Password: secret_sauce
+5. Verify that login was successful upon valid credentials
+6. Click on the sorting dropdown field
+7. Select Price (low to high)
+8. Verify that the products are displayed in hte correct order based on the selected option
+9. Select Price (high to low)
+10. Verify that the products are displayed in hte correct order based on the selected option
+11. Select Name (A to Z)
+12. Verify that the products are displayed in hte correct order based on the selected option
+13. Select Name (Z to A)
+14. Verify that the products are displayed in hte correct order based on the selected option
+","13375","Test Case: Sorting Products Validation","Suite","Mon Feb 10 15:34:11 GMT+06:00 2025","passed","Mon Feb 10 15:34:25 GMT+06:00 2025","testCases.ProductSortingTestCase","Swag Lab Automation","testCases.ProductSortingTestCase","productSortingTestCase"
+"1. Navigate to saucedemo.com.
+2. Enter valid credentials
+3. Username: standard_user
+4. Password: secret_sauce
+5. Verify that login was successful upon valid credentials
+6. Click the hamburger menu in the top-left corner
+7. Click on the logout button
+8. Verify that the user is redirected to the login page
+","3782","Test Case: Logout Functionality Test","Suite","Mon Feb 10 16:03:39 GMT+06:00 2025","passed","Mon Feb 10 16:03:43 GMT+06:00 2025","testCases.LogOutTestCase","Swag Lab Automation","testCases.LogOutTestCase","logOutTestCase"

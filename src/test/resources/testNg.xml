@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite" parallel="methods" thread-count="1">
+    <test name="Swag Lab Automation">
+        <classes>
+            <!--<class name="testCases.LoginTestCase"/>-->
+            <!--<class name="testCases.AddToCartTestCase"/>-->
+            <!--<class name="testCases.CheckoutTestCase"/>-->
+            <!--<class name="testCases.ProductSortingTestCase"/>-->
+            <class name="testCases.LogOutTestCase"/>
+        </classes>
+    </test>
+</suite>
