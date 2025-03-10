@@ -1,13 +1,12 @@
 package pages;
 
-import configurations.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-public class CommonElements extends BasePage {
+public class CommonElements extends AbstractPage {
     public CommonElements(WebDriver driver) {
         super(driver);
     }

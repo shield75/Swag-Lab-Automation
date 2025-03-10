@@ -1,6 +1,5 @@
 package pages;
 
-import configurations.BasePage;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,7 +8,7 @@ import org.testng.asserts.SoftAssert;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ProductsPage extends BasePage {
+public class ProductsPage extends AbstractPage {
 
     public ProductsPage(WebDriver driver) {
         super(driver);

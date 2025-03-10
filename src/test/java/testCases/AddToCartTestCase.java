@@ -1,6 +1,6 @@
 package testCases;
 
-import configurations.BaseClass;
+import pages.BasePage;
 import io.qameta.allure.*;
 import org.testng.annotations.Test;
 import pages.CartPage;
@@ -9,11 +9,11 @@ import pages.LoginPage;
 import pages.ProductsPage;
 import utilities.Data.LoginData;
 
-import static configurations.DriverManager.getDriver;
+import static utilities.DriverManager.getDriver;
 
 @Epic("Regression Tests")
 @Feature("User")
-public class AddToCartTestCase extends BaseClass {
+public class AddToCartTestCase extends BasePage {
     static LoginPage lp;
     static ProductsPage pp;
     static CartPage cp;
