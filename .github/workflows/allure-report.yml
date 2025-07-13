@@ -8,8 +8,6 @@ on:
 jobs:
   build_and_test:
     runs-on: ubuntu-latest
-    env:
-      BROWSER: firefox  # Set this to 'chrome' or 'firefox' as needed
 
     steps:
       - name: Checkout code
@@ -29,30 +27,18 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      # Chrome setup
-      - name: Setup Chrome
-        if: env.BROWSER == 'chrome'
+      - name: Install Google Chrome
         run: |
           sudo apt-get update
           sudo apt-get install -y google-chrome-stable
 
       - name: Setup ChromeDriver
-        if: env.BROWSER == 'chrome'
         uses: nanasess/setup-chromedriver@v1
         with:
           version: latest
 
-      # Firefox setup — correct Action
-      - name: Setup Firefox
-        if: env.BROWSER == 'firefox'
-        run: sudo apt-get install -y firefox
-
-      - name: Setup GeckoDriver
-        if: env.BROWSER == 'firefox'
-        uses: browser-actions/setup-geckodriver@latest
-
       - name: Run tests and generate Allure results
-        run: mvn clean test -Dbrowser=${{ env.BROWSER }}
+        run: mvn clean test -Dbrowser=chrome
 
       - name: Generate Allure report
         run: mvn allure:report
