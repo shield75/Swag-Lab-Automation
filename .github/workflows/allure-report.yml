@@ -13,17 +13,23 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: write  # Required to push to gh-pages branch
+      contents: write  # Needed for gh-pages deployment
+
+    env:
+      BROWSER_NAME: chrome
+      BROWSER_VERSION: 124.0
+      ENVIRONMENT_NAME: staging
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
 
       - name: Set up JDK 21
+        id: setup-java
         uses: actions/setup-java@v3
         with:
-          distribution: 'temurin'
-          java-version: '21'
+          distribution: temurin
+          java-version: 21
 
       - name: Cache Maven dependencies
         uses: actions/cache@v3
@@ -33,12 +39,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Run tests (force results to target/allure-results)
+      - name: Run tests (save Allure results to target/allure-results)
         run: mvn clean test -Dallure.results.directory=target/allure-results || true
 
       - name: Install Allure CLI
-        run: |
-          sudo npm install -g allure-commandline --unsafe-perm=true
+        run: sudo npm install -g allure-commandline --unsafe-perm=true
 
       - name: Add Allure Executor Info
         run: |
@@ -53,6 +58,15 @@ jobs:
             "reportUrl": "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/",
             "reportName": "Allure Report"
           }' > target/allure-results/executor.json
+
+      - name: Add Allure Environment Info
+        run: |
+          mkdir -p target/allure-results
+          echo "Browser=${BROWSER_NAME}" > target/allure-results/environment.properties
+          echo "Browser.Version=${BROWSER_VERSION}" >> target/allure-results/environment.properties
+          echo "Environment=${ENVIRONMENT_NAME}" >> target/allure-results/environment.properties
+          echo "OS=${{ runner.os }}" >> target/allure-results/environment.properties
+          echo "Java.Version=${{ steps.setup-java.outputs.java-version }}" >> target/allure-results/environment.properties
 
       - name: Generate Allure Report
         run: |
