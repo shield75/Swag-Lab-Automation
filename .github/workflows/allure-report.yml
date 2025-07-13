@@ -1,4 +1,4 @@
-name: Build, Test, and Publish Allure Report
+name: Build and Publish Allure Report
 
 on:
   push:
@@ -6,40 +6,41 @@ on:
   pull_request:
 
 jobs:
-  build_and_test:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Java 21
+      - name: Set up Java 21
         uses: actions/setup-java@v3
         with:
           distribution: temurin
           java-version: 21
-
-      - name: Cache Maven dependencies
-        uses: actions/cache@v4
-        with:
-          path: ~/.m2/repository
-          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-maven-
 
       - name: Install Google Chrome
         run: |
           sudo apt-get update
           sudo apt-get install -y google-chrome-stable
 
-      - name: Setup ChromeDriver
+      - name: Set up ChromeDriver
         uses: nanasess/setup-chromedriver@v2
+        with:
+          chromedriver-version: 'latest'
 
-      - name: Run Tests with Chrome and Generate Allure Results
-        run: mvn clean test -Dbrowser=chrome || true
+      - name: Cache local Maven repository
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
 
-      - name: Generate Allure Report
-        run: mvn allure:report
+      - name: Run Tests and Generate Allure Report
+        run: |
+          mvn clean test -Dbrowser=chrome || true
+          mvn allure:report
 
       - name: Upload Allure Report Artifact
         uses: actions/upload-artifact@v4
@@ -48,26 +49,24 @@ jobs:
           path: target/site/allure-maven-plugin
 
   deploy:
-    needs: build_and_test
+    needs: test
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download Allure Report Artifact
+      - name: Download Allure Report
         uses: actions/download-artifact@v4
         with:
           name: allure-report
           path: report
 
-      - name: Rename allure-maven.html to index.html
+      - name: Ensure index.html exists
         run: |
-          if [ -f report/allure-maven.html ]; then
-            mv report/allure-maven.html report/index.html
-          else
-            echo "❌ File 'allure-maven.html' not found in report folder."
+          if [ ! -f report/index.html ]; then
+            echo "❌ index.html not found in Allure report."
             exit 1
           fi
 
-      - name: Deploy Allure Report to GitHub Pages
+      - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
