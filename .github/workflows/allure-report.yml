@@ -1,0 +1,58 @@
+name: Build, Test and Publish Allure Report
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  build_and_test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Java 21
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Cache Maven dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Run tests and generate Allure results
+        run: mvn clean test
+
+      - name: Generate Allure report
+        run: mvn allure:report
+
+      - name: Upload Allure report artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: allure-report
+          path: target/site/allure-maven-plugin
+
+  deploy:
+    needs: build_and_test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download Allure report artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: allure-report
+          path: report
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./report
