@@ -33,14 +33,22 @@ jobs:
       - name: Check Chrome version
         run: google-chrome --version
 
-      - name: Run tests with Maven
+      - name: Run tests with Maven (continue on error)
+        id: run-tests
         run: mvn clean test
+        continue-on-error: true
 
-      - name: Generate Allure Report
+      - name: Generate Allure Report (always runs)
+        if: always()
         run: mvn allure:report
 
       - name: Upload Allure Report Artifact
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: allure-report
           path: target/site/allure-maven-plugin
+
+      - name: Fail job if tests failed
+        if: steps.run-tests.outcome == 'failure'
+        run: exit 1
