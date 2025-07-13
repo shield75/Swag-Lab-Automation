@@ -84,20 +84,6 @@
             <artifactId>aspectjweaver</artifactId>
             <version>${aspectj.version}</version>
         </dependency>
-
-        <!-- Chrome Driver -->
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-chrome-driver</artifactId>
-            <version>4.27.0</version>
-        </dependency>
-
-        <!-- Firefox Driver -->
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-firefox-driver</artifactId>
-            <version>4.27.0</version>
-        </dependency>
     </dependencies>
 
     <build>
