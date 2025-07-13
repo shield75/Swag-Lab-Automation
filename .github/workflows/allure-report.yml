@@ -58,11 +58,13 @@ jobs:
           name: allure-report
           path: report
 
-      - name: Rename main HTML to index.html
+      - name: Rename allure-maven.html to index.html
         run: |
-          cd report
-          if [ -f apache-maven.html ]; then
-            mv apache-maven.html index.html
+          if [ -f report/allure-maven.html ]; then
+            mv report/allure-maven.html report/index.html
+          else
+            echo "❌ File 'allure-maven.html' not found in report folder."
+            exit 1
           fi
 
       - name: Deploy Allure Report to GitHub Pages
