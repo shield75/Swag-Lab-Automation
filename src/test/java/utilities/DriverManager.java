@@ -19,10 +19,19 @@ public class DriverManager {
         if (driver == null) {  // If driver is not already initialized
             switch (browser.toLowerCase()) {
                 case "chrome":
-                    driver = new ChromeDriver();
+                    ChromeOptions chromeOptions = new ChromeOptions();
+                    chromeOptions.addArguments("--no-sandbox");
+                    chromeOptions.addArguments("--disable-dev-shm-usage");
+                    chromeOptions.addArguments("--headless=new");
+                    chromeOptions.addArguments("--disable-gpu");
+                    chromeOptions.addArguments("--remote-allow-origins=*");
+                    driver = new ChromeDriver(chromeOptions);
                     break;
                 case "firefox":
-                    driver = new FirefoxDriver();
+                    FirefoxOptions firefoxOptions = new FirefoxOptions();
+                    firefoxOptions.addArguments("-headless");  // Headless mode
+                    // Additional Firefox options for CI can be added here if needed
+                    driver = new FirefoxDriver(firefoxOptions);
                     break;
                 case "edge":
                     driver = new EdgeDriver();

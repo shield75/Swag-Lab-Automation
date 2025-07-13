@@ -10,6 +10,9 @@ jobs:
   build_and_test:
     runs-on: ubuntu-latest
 
+    env:
+      BROWSER: chrome  # Change to 'firefox' if you want to run tests on Firefox
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -21,15 +24,38 @@ jobs:
           java-version: '21'
 
       - name: Cache Maven dependencies
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
 
+      # Browser setup
+      - name: Setup browser dependencies
+        if: env.BROWSER == 'chrome'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y google-chrome-stable
+
+      - name: Setup ChromeDriver
+        if: env.BROWSER == 'chrome'
+        uses: nanasess/setup-chromedriver@v1
+        with:
+          version: latest
+
+      - name: Setup Firefox
+        if: env.BROWSER == 'firefox'
+        run: sudo apt-get install -y firefox
+
+      - name: Setup GeckoDriver
+        if: env.BROWSER == 'firefox'
+        uses: firefox-devtools/setup-geckodriver@v2
+        with:
+          geckodriver-version: latest
+
       - name: Run tests and generate Allure results
-        run: mvn clean test
+        run: mvn clean test -Dbrowser=${{ env.BROWSER }}
 
       - name: Generate Allure report
         run: mvn allure:report
