@@ -16,6 +16,7 @@ public class DriverManager {
 
     private static WebDriver driver;
 
+
     // Initialize the WebDriver based on the browser name.
     public static void initializeDriver(String browser) {
         if (driver == null) {  // If driver is not already initialized
