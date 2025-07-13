@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeSuite;
 import org.testng.asserts.SoftAssert;
 import utilities.DriverManager;
 import utilities.configProperties;
@@ -22,6 +23,11 @@ import static utilities.DriverManager.getDriver;
 public class BasePage {
     public static SoftAssert softAssert = new SoftAssert();
     public static String browser = configProperties.getProperty("browser");
+
+    @BeforeSuite(alwaysRun = true)
+    public void prepareAllureEnvironment() {
+        configProperties.writeEnvironmentProperties();
+    }
 
     @BeforeClass()
     @Step("Initializing WebDriver before test suite execution")

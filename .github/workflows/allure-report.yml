@@ -15,11 +15,6 @@ jobs:
     permissions:
       contents: write  # Needed for gh-pages deployment
 
-    env:
-      BROWSER_NAME: chrome
-      BROWSER_VERSION: 124.0
-      ENVIRONMENT_NAME: staging
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -39,7 +34,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Run tests (save Allure results to target/allure-results)
+      - name: Run tests (with Allure results)
         run: mvn clean test -Dallure.results.directory=target/allure-results || true
 
       - name: Install Allure CLI
@@ -58,15 +53,6 @@ jobs:
             "reportUrl": "https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/",
             "reportName": "Allure Report"
           }' > target/allure-results/executor.json
-
-      - name: Add Allure Environment Info
-        run: |
-          mkdir -p target/allure-results
-          echo "Browser=${BROWSER_NAME}" > target/allure-results/environment.properties
-          echo "Browser.Version=${BROWSER_VERSION}" >> target/allure-results/environment.properties
-          echo "Environment=${ENVIRONMENT_NAME}" >> target/allure-results/environment.properties
-          echo "OS=${{ runner.os }}" >> target/allure-results/environment.properties
-          echo "Java.Version=${{ steps.setup-java.outputs.java-version }}" >> target/allure-results/environment.properties
 
       - name: Generate Allure Report
         run: |
