@@ -1,72 +1,47 @@
-name: Build, Test, and Publish Allure Report
+name: Maven Test with Allure Report
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   pull_request:
+    branches:
+      - main
 
 jobs:
-  build_and_test:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-      - name: Setup Java 21
+      - name: Set up JDK 15
         uses: actions/setup-java@v3
         with:
-          distribution: temurin
-          java-version: 21
+          distribution: 'temurin'
+          java-version: '15'
 
       - name: Cache Maven dependencies
-        uses: actions/cache@v4
+        uses: actions/cache@v3
         with:
           path: ~/.m2/repository
           key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Install Google Chrome
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y google-chrome-stable
-
-      - name: Setup ChromeDriver
-        uses: nanasess/setup-chromedriver@v2
-
-      - name: Run Tests with Chrome and Generate Allure Results (even if they fail)
-        run: mvn clean test -Dbrowser=chrome || true
+      - name: Run tests with Maven
+        run: mvn clean test
 
       - name: Generate Allure Report
-        run: mvn allure:report
-
-      - name: Verify Allure report contains index.html
         run: |
-          if [ ! -f target/site/allure-maven-plugin/index.html ]; then
-            echo "ERROR: index.html not found in the Allure report folder!"
-            exit 1
-          fi
+          mvn allure:report
 
       - name: Upload Allure Report Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v3
         with:
           name: allure-report
           path: target/site/allure-maven-plugin
 
-  deploy:
-    needs: build_and_test
-    runs-on: ubuntu-latest
+    # Optional: Publish Allure report as GitHub Pages or use a report viewer action
 
-    steps:
-      - name: Download Allure Report Artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: allure-report
-          path: report
-
-      - name: Deploy Allure Report to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./report
