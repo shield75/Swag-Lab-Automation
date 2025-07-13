@@ -12,6 +12,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    permissions:
+      contents: write  # Required to push to gh-pages
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -30,19 +33,18 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Check Chrome version
-        run: google-chrome --version
-
-      - name: Run tests with Maven (continue on error)
+      - name: Run tests (don't fail job)
         run: mvn clean test || true
 
-      - name: Generate Allure Report (always runs)
+      - name: Generate Allure Report
         if: always()
         run: mvn allure:report
 
-      - name: Upload Allure Report Artifact
+      - name: Deploy Allure Report to gh-pages branch
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          name: allure-report
-          path: target/site/allure-maven-plugin
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./target/site/allure-maven-plugin
+          publish_branch: gh-pages
+          force_orphan: true
