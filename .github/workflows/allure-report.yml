@@ -35,7 +35,7 @@ jobs:
       - name: Setup ChromeDriver
         uses: nanasess/setup-chromedriver@v2
 
-      - name: Run Tests with Chrome and Generate Allure Results (even if they fail)
+      - name: Run Tests with Chrome and Generate Allure Results
         run: mvn clean test -Dbrowser=chrome || true
 
       - name: Generate Allure Report
@@ -57,6 +57,13 @@ jobs:
         with:
           name: allure-report
           path: report
+
+      - name: Rename main HTML to index.html
+        run: |
+          cd report
+          if [ -f apache-maven.html ]; then
+            mv apache-maven.html index.html
+          fi
 
       - name: Deploy Allure Report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
