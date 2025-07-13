@@ -50,9 +50,9 @@ jobs:
 
       - name: Setup GeckoDriver
         if: env.BROWSER == 'firefox'
-        uses: firefox-devtools/setup-geckodriver@v2
+        uses: matthew-brett/geckodriver-action@v1
         with:
-          geckodriver-version: latest
+          version: latest
 
       - name: Run tests and generate Allure results
         run: mvn clean test -Dbrowser=${{ env.BROWSER }}
