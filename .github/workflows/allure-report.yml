@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: write  # Required to push to gh-pages
+      contents: write  # Required for gh-pages deployment
 
     steps:
       - name: Checkout repository
@@ -33,18 +33,22 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Run tests (don't fail job)
+      - name: Run tests (don't fail job if tests fail)
         run: mvn clean test || true
 
-      - name: Generate Allure Report
-        if: always()
-        run: mvn allure:report
+      - name: Install Allure CLI
+        run: |
+          sudo npm install -g allure-commandline --unsafe-perm=true
 
-      - name: Deploy Allure Report to gh-pages branch
-        if: always()
+      - name: Generate Allure Report
+        run: |
+          allure generate target/allure-results --clean -o allure-report
+
+      - name: Deploy Allure Report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
+        if: always()
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./target/site/allure-maven-plugin
+          publish_dir: ./allure-report
           publish_branch: gh-pages
           force_orphan: true
