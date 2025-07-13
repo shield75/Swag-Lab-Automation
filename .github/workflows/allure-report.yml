@@ -1,4 +1,4 @@
-name: Build, Test and Publish Allure Report
+name: Build, Test, and Publish Allure Report
 
 on:
   push:
@@ -16,8 +16,8 @@ jobs:
       - name: Setup Java 21
         uses: actions/setup-java@v3
         with:
-          distribution: 'temurin'
-          java-version: '21'
+          distribution: temurin
+          java-version: 21
 
       - name: Cache Maven dependencies
         uses: actions/cache@v4
@@ -33,17 +33,15 @@ jobs:
           sudo apt-get install -y google-chrome-stable
 
       - name: Setup ChromeDriver
-        uses: nanasess/setup-chromedriver@v1
-        with:
-          version: latest
+        uses: browser-actions/setup-chromedriver@latest
 
-      - name: Run tests and generate Allure results
+      - name: Run Tests with Chrome and Generate Allure Results
         run: mvn clean test -Dbrowser=chrome
 
-      - name: Generate Allure report
+      - name: Generate Allure Report
         run: mvn allure:report
 
-      - name: Upload Allure report artifact
+      - name: Upload Allure Report Artifact
         uses: actions/upload-artifact@v4
         with:
           name: allure-report
@@ -54,13 +52,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download Allure report artifact
+      - name: Download Allure Report Artifact
         uses: actions/download-artifact@v4
         with:
           name: allure-report
           path: report
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy Allure Report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
