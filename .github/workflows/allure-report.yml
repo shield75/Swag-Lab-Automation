@@ -25,9 +25,9 @@ jobs:
           sudo apt-get install -y google-chrome-stable
 
       - name: Set up ChromeDriver
-        uses: nanasess/setup-chromedriver@v2
+        uses: nanasess/setup-chromedriver@v3
         with:
-          chromedriver-version: 'latest'
+          chromedriver-version: latest
 
       - name: Cache local Maven repository
         uses: actions/cache@v3
