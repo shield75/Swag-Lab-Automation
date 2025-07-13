@@ -2,16 +2,14 @@ name: Build, Test and Publish Allure Report
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
 
 jobs:
   build_and_test:
     runs-on: ubuntu-latest
-
     env:
-      BROWSER: chrome  # Change to 'firefox' if you want to run tests on Firefox
+      BROWSER: firefox  # Set this to 'chrome' or 'firefox' as needed
 
     steps:
       - name: Checkout code
@@ -31,8 +29,8 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      # Browser setup
-      - name: Setup browser dependencies
+      # Chrome setup
+      - name: Setup Chrome
         if: env.BROWSER == 'chrome'
         run: |
           sudo apt-get update
@@ -44,15 +42,14 @@ jobs:
         with:
           version: latest
 
+      # Firefox setup — correct Action
       - name: Setup Firefox
         if: env.BROWSER == 'firefox'
         run: sudo apt-get install -y firefox
 
       - name: Setup GeckoDriver
         if: env.BROWSER == 'firefox'
-        uses: matthew-brett/geckodriver-action@v1
-        with:
-          version: latest
+        uses: browser-actions/setup-geckodriver@latest
 
       - name: Run tests and generate Allure results
         run: mvn clean test -Dbrowser=${{ env.BROWSER }}
