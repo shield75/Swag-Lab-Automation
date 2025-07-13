@@ -8,12 +8,12 @@
     <test name="Swag Lab Automation">
         <classes>
             <class name="testCases.LoginTestCase"/>
-<!--            <class name="testCases.AddToCartTestCase"/>
+            <class name="testCases.AddToCartTestCase"/>
             <class name="testCases.CheckoutTestCase"/>
             <class name="testCases.ProductSortingTestCase"/>
             <class name="testCases.LogOutTestCase"/>
             <class name="testCases.LockedOutUserTestCase"/>
-            <class name="testCases.CartBadgeCountTestCase"/>-->
+            <class name="testCases.CartBadgeCountTestCase"/>
         </classes>
     </test>
 </suite>
