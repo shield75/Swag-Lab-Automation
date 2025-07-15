@@ -31,14 +31,14 @@ public class BasePage {
 
     @BeforeClass()
     @Step("Initializing WebDriver before test suite execution")
-    public static void setUp() {
+    public void setUp() {
         DriverManager.initializeDriver(browser);
 
     }
 
     @AfterClass()
     @Step("Closing WebDriver after test suite execution")
-    public static void tearDown() {
+    public void tearDown() {
         DriverManager.quitDriver();
     }
 
