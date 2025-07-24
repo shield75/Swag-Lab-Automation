@@ -1,0 +1,79 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"1. Navigate to saucedemo.com.
+2. Enter the locked out credentials:
+3. Username: locked_out_user
+4. Password: secret_sauce
+5. Click on the login button
+6. Verify the error message: “Sorry, this user has been locked out.”
+","3574","Locked-Out User Validation ","Suite","Thu Jul 24 12:56:37 UTC 2025","passed","Thu Jul 24 12:56:41 UTC 2025","testCases.LockedOutUserTestCase","Swag Lab Automation","testCases.LockedOutUserTestCase","lockedOutUserTestCase"
+"1. Navigate to saucedemo.com.
+2. Enter valid credentials
+3. Username: standard_user
+4. Password: secret_sauce
+5. Verify that login was successful upon valid credentials
+6. Add the first two products to the cart by clicking Add to cart button
+7. Verify that in the cart icon shows the correct number in the icon badge
+8. Remove the added items
+9. Verify that in the cart icon shows the correct number in the icon badge
+10. Add the first two products to the cart by clicking Add to cart button
+11. Click on the cart icon to go to the cart page
+12. Verify that added products are visible in the cart page
+","22183","Test Case: Cart Page","Suite","Thu Jul 24 12:55:35 UTC 2025","passed","Thu Jul 24 12:55:58 UTC 2025","testCases.AddToCartTestCase","Swag Lab Automation","testCases.AddToCartTestCase","addToCartTestCase"
+"1. Navigate to saucedemo.com.
+2. Enter valid credentials
+3. Username: standard_user
+4. Password: secret_sauce
+5. Verify that login was successful upon valid credentials
+6. Click the hamburger menu in the top-left corner
+7. Click on the logout button
+8. Verify that the user is redirected to the login page
+","3881","Test Case: Logout Functionality Test","Suite","Thu Jul 24 12:56:30 UTC 2025","passed","Thu Jul 24 12:56:34 UTC 2025","testCases.LogOutTestCase","Swag Lab Automation","testCases.LogOutTestCase","logOutTestCase"
+"1. Navigate to saucedemo.com.
+2. Enter valid credentials
+3. Username: standard_user
+4. Password: secret_sauce
+5. Verify that login was successful upon valid credentials
+6. Click on the sorting dropdown field
+7. Select Price (low to high)
+8. Verify that the products are displayed in hte correct order based on the selected option
+9. Select Price (high to low)
+10. Verify that the products are displayed in hte correct order based on the selected option
+11. Select Name (A to Z)
+12. Verify that the products are displayed in hte correct order based on the selected option
+13. Select Name (Z to A)
+14. Verify that the products are displayed in hte correct order based on the selected option
+","14177","Test Case: Sorting Products Validation","Suite","Thu Jul 24 12:56:13 UTC 2025","passed","Thu Jul 24 12:56:27 UTC 2025","testCases.ProductSortingTestCase","Swag Lab Automation","testCases.ProductSortingTestCase","productSortingTestCase"
+"1. Navigate to saucedemo.com.
+2. Enter valid credentials
+3. Username: standard_user
+4. Password: secret_sauce
+5. Verify that login was successful upon valid credentials
+6. Add the first two products to the cart by clicking Add to cart button
+7. Verify that in the cart icon shows the correct number in the icon badge
+8. Click on the cart icon to go to the cart page
+9. Verify that added products are visible in the cart page
+10. Click on the checkout button
+11. Enter the checkout information (First Name: John, Last Name: Doe, Postal Code: 12345)
+12. Click on the continue button
+13. Verify that correct item is showing in the order summary
+14. Click on the finish button
+15. Verify that the success message is showing after finishing the order
+","10118","Test Case: Checkout Process Validation","Suite","Thu Jul 24 12:56:00 UTC 2025","passed","Thu Jul 24 12:56:11 UTC 2025","testCases.CheckoutTestCase","Swag Lab Automation","testCases.CheckoutTestCase","checkoutTestCase"
+"1. Navigate to saucedemo.com.
+2. Enter valid credentials
+3. Username: standard_user
+4. Password: secret_sauce
+5. Verify that login was successful upon valid credentials
+6. Add the first two products to the cart by clicking Add to cart button
+7. Verify that in the cart icon shows the correct number in the icon badge
+8. Remove the added items
+9. Verify that in the cart icon shows the correct number in the icon badge
+","19052","Test Case: Cart Badge Count Validation","Suite","Thu Jul 24 12:56:43 UTC 2025","passed","Thu Jul 24 12:57:02 UTC 2025","testCases.CartBadgeCountTestCase","Swag Lab Automation","testCases.CartBadgeCountTestCase","cartBadgeCountTestCase"
+"1. Navigate to saucedemo.com.
+2. Enter invalid credentials (wrong username/password)
+3. Verify that error message is showing upon invalid credentials
+4. Enter valid credentials
+5. Username: standard_user
+6. Password: secret_sauce
+7. Verify that login was successful upon valid credentials
+","20575","Test Case: Login Page","Suite","Thu Jul 24 12:55:12 UTC 2025","passed","Thu Jul 24 12:55:32 UTC 2025","testCases.LoginTestCase","Swag Lab Automation","testCases.LoginTestCase","loginTestCase"

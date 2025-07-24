@@ -1,0 +1,8 @@
+"BROKEN","EPIC","FAILED","FEATURE","PASSED","SKIPPED","STORY","UNKNOWN"
+"0","Regression Tests","0","User","1","0","Ensure that a locked-out user cannot log in.","0"
+"0","Regression Tests","0","User","1","0","Verify that added products are visible in the cart page","0"
+"0","Regression Tests","0","User","1","0","Verify that the logout process works correctly","0"
+"0","Regression Tests","0","User","1","0","Verify the sorting functionality for products","0"
+"0","Regression Tests","0","User","1","0","Automate the full checkout process","0"
+"0","Regression Tests","0","User","1","0","Verify that the cart badge updates correctly.","0"
+"0","Regression Tests","0","User","1","0","Verify login with valid and invalid credentials.","0"
