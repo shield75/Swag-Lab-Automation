@@ -25,6 +25,7 @@ public class LoginPage extends AbstractPage {
     @FindBy(xpath = "//h3[@data-test='error']")
     public WebElement errorMessage;
 
+
     @FindBy(xpath = "//input[@id='login-button']")
     public WebElement loginButton;
 }
