@@ -40,7 +40,7 @@ public class LoginTestCase extends BasePage {
             verifyInvalidCredentials((String) data[0], (String) data[1], (String) data[2]);
         }
 
-        // Run valid credential test
+        // Run a valid credential test
         Object[][] validData = new LoginData().singleValidData();
         for (Object[] data : validData) {
             verifyValidCredentials((String) data[0], (String) data[1]);
@@ -60,7 +60,6 @@ public class LoginTestCase extends BasePage {
         waitForElementToBeVisible(lp.errorMessage,5);
         softAssert.assertEquals(lp.errorMessage.getText(), errorMessage);
         clickElement(lp.errorMessageButton);
-
     }
 
     @Step("Verify that login was successful upon valid credentials")

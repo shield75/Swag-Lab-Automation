@@ -19,7 +19,7 @@ public class DriverManager {
 
     // Initialize the WebDriver based on the browser name.
     public static void initializeDriver(String browser) {
-        if (driver == null) {  // If driver is not already initialized
+        if (driver == null) {  // If a driver is not already initialized
             switch (browser.toLowerCase()) {
                 case "chrome":
                     ChromeOptions chromeOptions = new ChromeOptions();
@@ -32,7 +32,7 @@ public class DriverManager {
                     break;
                 case "firefox":
                     FirefoxOptions firefoxOptions = new FirefoxOptions();
-                    firefoxOptions.addArguments("-headless");  // Headless mode
+                    //firefoxOptions.addArguments("-headless");  // Headless mode
                     // Additional Firefox options for CI can be added here if needed
                     driver = new FirefoxDriver(firefoxOptions);
                     break;
@@ -46,7 +46,7 @@ public class DriverManager {
                     throw new IllegalArgumentException("Browser not supported: " + browser);
             }
 
-            // Set implicit wait and maximize window
+            // Set implicit wait and maximize a window
             driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
             driver.manage().window().maximize();
             driver.get(getProperty("base_url"));

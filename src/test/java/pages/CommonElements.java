@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-public class CommonElements extends AbstractPage {
+public class CommonElements extends PageFactory {
     public CommonElements(WebDriver driver) {
         super(driver);
     }

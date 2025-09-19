@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-public class CheckoutPage extends AbstractPage {
+public class CheckoutPage extends PageFactory {
 
     public CheckoutPage(WebDriver driver) {
         super(driver);

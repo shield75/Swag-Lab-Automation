@@ -16,7 +16,7 @@ import utilities.configProperties;
 import java.time.Duration;
 import java.util.*;
 
-import static pages.AbstractPage.wait;
+import static pages.PageFactory.wait;
 import static utilities.DriverManager.getDriver;
 
 

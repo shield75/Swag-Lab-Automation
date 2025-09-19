@@ -20,7 +20,7 @@ public class CheckoutTestCase extends BasePage {
     static CartPage cp;
     static CheckoutPage co;
     static CommonElements ce;
-    static int numberOfItems = 1;
+    static int numberOfItems = 2;
     static List<String> itemNames;
 
     @Test(description = "Test Case: Checkout Process Validation")

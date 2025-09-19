@@ -19,23 +19,23 @@ public class AddToCartTestCase extends BasePage {
     static CartPage cp;
     static CommonElements ce;
     public static int track = 0;
+    static int numberOfItems = 3;
 
     @Test(description = "Test Case: Cart Page")
     @Severity(SeverityLevel.CRITICAL)
     @Story("Verify that added products are visible in the cart page")
-    @Description("""
+    @Description(value = """
             1. Navigate to saucedemo.com.
             2. Enter valid credentials
             3. Username: standard_user
             4. Password: secret_sauce
             5. Verify that login was successful upon valid credentials
-            6. Add the first two products to the cart by clicking Add to cart button
+            6. Add the three products to the cart by clicking Add to cart button
             7. Verify that in the cart icon shows the correct number in the icon badge
-            8. Remove the added items
-            9. Verify that in the cart icon shows the correct number in the icon badge
-            10. Add the first two products to the cart by clicking Add to cart button
-            11. Click on the cart icon to go to the cart page
-            12. Verify that added products are visible in the cart page
+            8. Click on the cart icon to go to the cart page
+            9. Verify that added products are visible in the cart page
+            9. Remove the second item
+            10. Verify that the second item has been removed and cart icon number has been updated
             """)
     public static void addToCartTestCase() throws InterruptedException {
         lp = new LoginPage(getDriver());
@@ -48,10 +48,9 @@ public class AddToCartTestCase extends BasePage {
         for (Object[] data : validData) {
             verifyValidCredentials((String) data[0], (String) data[1]);
         }
-        verifyCartIconItems("Add", 2);
-        verifyCartIconItems("Remove", 2);
-        verifyCartIconItems("Add", 2);
+        verifyCartIconItems("Add", numberOfItems);
         verifyProductsInCartPage();
+        verifyRemoveProduct(2);
 
         softAssert.assertAll();
     }
@@ -93,5 +92,19 @@ public class AddToCartTestCase extends BasePage {
         clickElement(pp.cartLink);
         waitForElementToBeVisible(ce.pageTitle, 5);
         softAssert.assertEquals(cp.cartItems.size(), track, "Number of items did not match in the cart page!");
+    }
+
+    @Step(" Verify that the second item has been removed and cart icon number has been updated")
+    public static void verifyRemoveProduct(int itemNumber){
+        clickElement(cp.removeButtons.get(itemNumber));
+        softAssert.assertEquals(cp.cartItems.size(), track - 1, "Item was not removed!");
+        track = track - 1;
+        if(track == 0){
+            softAssert.assertFalse(verifyElementVisibility(pp.cartBadge), "Number of items did not match!");
+        }
+        else {
+            softAssert.assertEquals(pp.cartBadge.getText(), String.valueOf(track), "Number of items did not match!");
+        }
+
     }
 }
